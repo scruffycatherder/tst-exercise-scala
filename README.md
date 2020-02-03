@@ -1,4 +1,4 @@
-  # Problem 2:
+  # TST exercises, Scala version:
   
   ## Notes:
   

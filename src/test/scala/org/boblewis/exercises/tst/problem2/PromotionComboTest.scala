@@ -21,7 +21,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
     val combo = PromotionCombo(Seq())
     val promotions = Seq()
     val comboPromotions = combo.getAsPromotions(promotions)
-    assert(comboPromotions.length == 0)
+    assert(comboPromotions.isEmpty)
   }
 
   test("GetAsPromotions missing promotion throws exception") {
@@ -32,7 +32,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
 
     val combo = PromotionCombo(Seq("P1", "P3", "P4"))
     try {
-      val comboPromotions = combo.getAsPromotions(promotions)
+     combo.getAsPromotions(promotions)
     } catch {
       case _: IllegalArgumentException => // Expected
     }
@@ -41,7 +41,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
   test("GetAllPromotionCombos empty") {
     val promotions = Seq()
     val combos: Seq[PromotionCombo] = PromotionCombo.allPossiblePromotionCombos(promotions)
-    assert(combos.length == 0)
+    assert(combos.isEmpty)
   }
 
   test("GetAllPromotionCombos single promo") {
@@ -49,7 +49,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
     val promotions = Seq(p1)
     val combos: Seq[PromotionCombo] = PromotionCombo.allPossiblePromotionCombos(promotions)
     // one promotion is not enough for a combination
-    assert(combos.length == 0)
+    assert(combos.isEmpty)
   }
 
   test("GetAllPromotionCombos two promos") {
@@ -79,7 +79,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
   test("allCombinablePromotionCombos empty") {
     val promotions = Seq()
     val combos: Seq[PromotionCombo] = PromotionCombo.combinablePromotions(promotions)
-    assert(combos.length == 0)
+    assert(combos.isEmpty)
   }
 
 
@@ -87,7 +87,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
     val p1 = Promotion("P1", Seq())
     val promotions = Seq(p1)
     val combos: Seq[PromotionCombo] = PromotionCombo.combinablePromotions(promotions)
-    assert(combos.length == 0)
+    assert(combos.isEmpty)
   }
 
   test("allCombinablePromotionCombos two combinable promos") {
@@ -104,7 +104,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
     val p2 = Promotion("P2", Seq("P1"))
     val promotions = Seq(p1, p2)
     val combos: Seq[PromotionCombo] = PromotionCombo.combinablePromotions(promotions)
-    assert(combos.length == 0)
+    assert(combos.isEmpty)
   }
 
   test("allCombinablePromotionCombos 3 promos, all combinable") {
@@ -155,10 +155,10 @@ class PromotionComboTest extends org.scalatest.FunSuite {
     val allCombos = Seq(combo1, combo2, combo3)
     val s1 = Set(4, 12)
     val s2 = Set(12, 4)
-    assert(s1.subsetOf(s2) == true)
-    assert(combo1.strictSubsetOfAnyPromotionCombo(allCombos) == false)
-    assert(combo2.strictSubsetOfAnyPromotionCombo(allCombos) == true)
-    assert(combo3.strictSubsetOfAnyPromotionCombo(allCombos) == false)
+    assert(s1.subsetOf(s2))
+    assert(!combo1.strictSubsetOfAnyPromotionCombo(allCombos))
+    assert(combo2.strictSubsetOfAnyPromotionCombo(allCombos))
+    assert(!combo3.strictSubsetOfAnyPromotionCombo(allCombos))
 
   }
 
@@ -256,7 +256,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
 
   test("allCombinablePromotions with no promotions") {
     val combos = PromotionCombo.combinablePromotions(Seq())
-    assert(combos.length == 0)
+    assert(combos.isEmpty)
   }
 
   test("PromotionCode empty string is OK") {
@@ -278,7 +278,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
       Promotion("P3", Seq(null))
     )
     try {
-      val combos = PromotionCombo.combinablePromotions("P2", allPromotions)
+      PromotionCombo.combinablePromotions("P2", allPromotions)
       fail()
     } catch {
       case _: NullPointerException => // Expected
@@ -287,7 +287,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
 
   test("allCombinablePromotions with starting promo code, but no promotions") {
     try {
-      val combos = PromotionCombo.combinablePromotions("P1", Seq())
+      PromotionCombo.combinablePromotions("P1", Seq())
       fail()
     } catch {
       case _: IllegalArgumentException => // Expected
@@ -302,7 +302,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
     )
 
     try {
-      val combos = PromotionCombo.combinablePromotions("P4", allPromotions)
+      PromotionCombo.combinablePromotions("P4", allPromotions)
       fail()
     } catch {
       case _: IllegalArgumentException => // Expected
@@ -317,7 +317,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
     )
 
     try {
-      val combos = PromotionCombo.combinablePromotions(allPromotions)
+      PromotionCombo.combinablePromotions(allPromotions)
       fail()
     } catch {
       case _: IllegalArgumentException => // Expected
@@ -332,7 +332,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
     )
 
     try {
-      val combos = PromotionCombo.combinablePromotions(allPromotions)
+      PromotionCombo.combinablePromotions(allPromotions)
       fail()
     } catch {
       case _: IllegalArgumentException => // Expected
@@ -345,7 +345,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
       Promotion("P2", Seq("P1"))
     )
     val combos = PromotionCombo.combinablePromotions(allPromotions)
-    assert(combos.length == 0)
+    assert(combos.isEmpty)
   }
 
   test("small circular combinability yields no combinations") {
@@ -355,7 +355,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
       Promotion("P3", Seq("P1"))
     )
     val combos = PromotionCombo.combinablePromotions(allPromotions)
-    assert(combos.length == 0)
+    assert(combos.isEmpty)
   }
 
   test("slightly larger circular combinability yields some combinations") {
@@ -377,7 +377,7 @@ class PromotionComboTest extends org.scalatest.FunSuite {
       Promotion("P2", Seq("P1"))
     )
     try {
-      val combos = PromotionCombo.combinablePromotions("P1", allPromotions)
+      PromotionCombo.combinablePromotions("P1", allPromotions)
       fail()
     } catch {
       case _: NullPointerException => // Expected

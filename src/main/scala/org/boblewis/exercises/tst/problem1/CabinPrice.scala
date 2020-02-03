@@ -1,6 +1,6 @@
 package org.boblewis.exercises.tst.problem1
 
-import scala.collection.mutable.HashSet
+import scala.collection.mutable
 
 /**
   * A Price for a specific cabin and rate code.
@@ -10,13 +10,14 @@ import scala.collection.mutable.HashSet
   * @param price the price.
   */
 case class CabinPrice(cabinCode: String, rateCode: String, price: BigDecimal) {
+
   /**
-    * validates the contents of this CabinPrice.
+    * Validates the contents of this CabinPrice.
     * @throws NullPointerException if a null value is found.
     */
   def validate(): Unit = {
     if (cabinCode == null || rateCode == null || price == null) {
-      throw new NullPointerException("CabinPrice contained a null value")
+      throw new NullPointerException("CabinPrice contained a null value.")
     }
   }
 }
@@ -32,7 +33,7 @@ object CabinPrice {
     * @throws IllegalArgumentException if invalid data is encountered.
     */
   def validateCabinPrices(cabinPrices: Seq[CabinPrice] ): Unit = {
-    val cabinRatePairs = new HashSet[(String, String)]()
+    val cabinRatePairs = new mutable.HashSet[(String, String)]()
 
     for (cabinPrice <- cabinPrices) {
       cabinPrice.validate()

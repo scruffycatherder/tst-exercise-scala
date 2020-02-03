@@ -1,32 +1,30 @@
 package org.boblewis.exercises.tst.problem2
 
-import scala.collection.mutable.HashSet
-
 class PromotionTest extends org.scalatest.FunSuite {
 
-  test ("Simple valid") {
+  test ("Simple combinable") {
     val promo = Promotion("P1", Seq("P3"))
-    assert(promo.isCombinable(Seq("P4", "P5")) == true)
+    assert(promo.isCombinable(Seq("P4", "P5")))
   }
 
-  test ("Simple not valid") {
+  test ("Simple not combinable") {
     val promo = Promotion("P1", Seq("P3", "P4"))
-    assert(promo.isCombinable(Seq("P4", "P5")) == false)
+    assert(!promo.isCombinable(Seq("P4", "P5")))
   }
 
-  test ("Empty notCombinableWith is always valid") {
+  test ("Empty notCombinableWith is always combinable") {
     val promo = Promotion("P1", Seq())
-    assert(promo.isCombinable(Seq("P4", "P5")) == true)
+    assert(promo.isCombinable(Seq("P4", "P5")))
   }
 
-  test ("Empty notCombinableWith and empty input is valid") {
+  test ("Empty notCombinableWith and empty input is combinable") {
     val promo = Promotion("P1", Seq())
-    assert(promo.isCombinable(Seq()) == true)
+    assert(promo.isCombinable(Seq()))
   }
 
-  test ("Empty input is valid") {
+  test ("Empty input is combinable") {
     val promo = Promotion("P1", Seq("P2"))
-    assert(promo.isCombinable(Seq()) == true)
+    assert(promo.isCombinable(Seq()))
   }
 
   test ("GetPromotionByCode found") {
