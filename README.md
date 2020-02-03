@@ -2,10 +2,10 @@
   
   ## Notes:
   
-  Given that this is my first introduction to Scala, this is is very much a brute force implementation.  The current implementation of problem 2 runs in exponential time, and not been optimized at all. 
+  Given that this is my first introduction to Scala, this is is very much a brute force implementation.  The current implementation of problem 2 runs in exponential time, and has not been optimized at all.
   
   ## Assumptions:
-  - The data structures provided in the problem description were to be used without modification.  Given a choice, I would likely have made changes that might clean the code up a bit, or possibly improve performance. 
+  - The data structures provided in the problem description were to be used without modification.  Given a choice, I would likely have made changes to clean the code up a bit and improve performance.
     For example, I could have stored the reference to the full Promotion objects within PromotionCombo, so we would not have to pass allPromotions around from function to function. Or, I may have used Set instead of Seq throughout, since ordering seems unimportant.
     Alternatively, I could have stored the list of all known Promotions in a Singleton, but I felt like the provided interface lent itself more towards a stateless implementation.
   
@@ -22,3 +22,4 @@
   Execute Problem2 with sample input:  `sbt "runMain org.boblewis.exercises.tst.problem2.Main"`
   
   Execute unit tests: `sbt test`
+
